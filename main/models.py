@@ -16,5 +16,7 @@ class Action(models.Model):
         ('BLOG', 'Blog'),
     )
 
-    event_type = models.CharField(max_length = 20 , choices = EVENT_TYPES, default='Type')  
+    event_type = models.CharField(max_length = 20 , choices = EVENT_TYPES, default='Type')
 
+    def __str__(self):
+        return self.title
