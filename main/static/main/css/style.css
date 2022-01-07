@@ -1,0 +1,164 @@
+* {
+    background-color: rgb(46, 45, 45);
+    #border: solid 2px green;
+    margin: 0px;
+}
+.html {
+    width: 100%;
+    height: 100%;
+}
+.body {
+    width: 100%;
+    height: 100%;
+}
+
+.header {
+    position: fixed;
+    display: flex;
+    width: 100%;
+    /* background-color: rgb(104, 91, 91);  */
+    justify-content: space-between;
+
+    z-index: 1;
+
+}
+
+.header .image1 .logo img {
+    width: 50%;
+}
+
+.header-right {
+    display: flex;
+    margin: 0.3em;
+    justify-content: space-around;
+}
+.header-right a {
+    padding: 0.3em;
+}
+.header-right a:hover {
+    color: red;
+}
+.button {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/*
+  WELCOME PAGE
+*/
+
+.wrapper {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+}
+
+.wrapper canvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.welcome-container {
+  border: solid red 2px;
+}
+
+.word-container {
+  position: fixed;
+  top: 50%;
+  left: 25%;
+  display: flex;
+  justify-content: space-evenly;
+
+  background-color: transparent;
+  font-size: 100px;
+}
+
+.invisible {
+  #display: none;
+
+  animation: go_out .5s; /* pulsate 2.5s infinite alternate; */
+
+}
+
+.visible {
+  animation: come_in .5s; /* pulsate 2.5s infinite alternate; */
+}
+
+
+.neonText {
+  color: #fff;
+  text-shadow:
+    /* White glow */
+    0 0 7px #fff,
+    0 0 10px #fff,
+    0 0 21px #fff,
+    /* Green glow */
+    0 0 42px #FF0000,
+    0 0 82px #FF0000,
+    0 0 92px #FF0000,
+    0 0 102px #FF0000,
+    0 0 151px #FF0000;
+}
+
+.pulsate-animation {
+  animation: pulsate 2.5s infinite alternate;
+}
+
+@keyframes pulsate {
+
+  100% {
+    /* Larger blur radius */
+    text-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 40px #0fa,
+      0 0 80px #0fa,
+      0 0 90px #0fa,
+      0 0 100px #0fa,
+      0 0 150px #0fa;
+  }
+
+  0% {
+    /* Smaller blur radius */
+    text-shadow:
+      0 0 2px #fff,
+      0 0 4px #fff,
+      0 0 6px #fff,
+      0 0 10px #0fa,
+      0 0 45px #0fa,
+      0 0 55px #0fa,
+      0 0 70px #0fa,
+      0 0 80px #0fa;
+  }
+}
+
+@keyframes go_out {
+
+  0% {
+    opacity: 1;
+    transform:translate3d(0,0,0);
+  }
+
+  100% {
+    opacity: 0;
+    transform:translate3d(0,-100px,0);
+  }
+
+}
+
+@keyframes come_in {
+
+  0% {
+    opacity: 0;
+    transform:translate3d(0,100px,0);
+  }
+
+  100% {
+    opacity: 1;
+    transform:translate3d(0,0,0);
+  }
+
+}
