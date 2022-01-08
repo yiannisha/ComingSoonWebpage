@@ -1,31 +1,31 @@
-* { 
+* {
     background-color: rgb(46, 45, 45);
     border: solid 2px green;
-    margin: 0px; 
+    margin: 0px;
 }
 .html {
-    width: 100%; 
+    width: 100%;
     height: 100%;
 }
 .body {
-    width: 100%; 
+    width: 100%;
     height: 100%;
 }
 
 .header {
-    position: fixed; 
-    display: flex; 
+    position: fixed;
+    display: flex;
     width: 100%;
     /* background-color: rgb(104, 91, 91);  */
     justify-content: space-between;
 }
 
-.header .image1 .logo img { 
+.header .image1 .logo img {
     width: 50%;
 }
 
 .header-right {
-    display: flex; 
+    display: flex;
     margin: 0.3em;
     justify-content: space-around;
 }
@@ -36,6 +36,20 @@
     color: red;
 }
 .button {
-    display: flex; 
+    display: flex;
     flex-direction: column;
+}
+
+
+/*
+  WELCOME PAGE
+*/
+
+.welcome-container {
+  border: solid red 2px;
+}
+
+.word-container {
+  position: fixed;
+  background-color: red;
 }

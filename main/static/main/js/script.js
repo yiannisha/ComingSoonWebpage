@@ -12,8 +12,9 @@ let words = ["TEDX", "AWESOME", "VERY NICE", "LOADING..."];
 
 // make container div big enough for all the words
 var wordContainerElem = document.querySelector(".welcome-container");
-wordContainerElem.style.paddingBottom = words.length * window.innerHeight;
-// console.log(window.getComputedStyle(wordContainerElem).paddingBottom);
+wordContainerElem.style.paddingBottom = (words.length * window.innerHeight).toString() + "px";
+//console.log((words.length * window.innerHeight).toString() + "px");
+//console.log(window.getComputedStyle(wordContainerElem).paddingBottom);
 
 // map words to y coordinates
 let welcomeContainerStyle = window.getComputedStyle(wordContainerElem);
@@ -24,7 +25,7 @@ let wContainerPaddingBottom = parseInt(welcomeContainerStyle.paddingBottom);
 var containerHeight = wContainerHeight + wContainerPaddingTop + wContainerPaddingBottom;
 //console.log(containerHeight);
 
-// divide total height into (words.length) parts and assign a word to each path
+// divide total height into (words.length) parts and assign a word to each part
 var word_map = [];
 let div = containerHeight / words.length;
 let mapping = div;
