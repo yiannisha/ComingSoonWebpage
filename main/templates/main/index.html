@@ -4,7 +4,7 @@
 <head>
     <title>TEDxNTUA</title>
     <!-- <link rel = "stylesheet" src = "main/css/style.css"> -->
-    <link rel ="stylesheet" type="text/css" href="{% static 'main/css/style.css' %}">
+    <link rel ="stylesheet" type="text/css" href="{% static 'main/css/style.css' %}?<?php echo time(); ?>">
 </head>
 <body>
   <!--- HEADER --->
@@ -27,7 +27,7 @@
     </div>
   </div>
 
-<script src="{% static 'main/js/script.js' %}"></script>
+<script src="{% static 'main/js/script.js' %}?<?php echo time(); ?>"></script>
 </body>
 </html>
 

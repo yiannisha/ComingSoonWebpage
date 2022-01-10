@@ -33,7 +33,7 @@ for (let i=0;i<words.length;i++) {
   word_map.push(mapping);
   mapping+=div;
 }
-console.log(word_map);
+//console.log(word_map);
 
 // add function to change word based on y coordinates
 function updateWord (y) {
