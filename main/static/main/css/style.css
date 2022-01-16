@@ -49,15 +49,17 @@
 */
 
 .wrapper {
-    position: fixed;
+    position: absolute;
     width: 300px;
     height: 300px;
 }
 
 .wrapper canvas{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
+
+    background-color: transparent;
 }
 
 .welcome-container {
