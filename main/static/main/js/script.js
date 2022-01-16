@@ -30,7 +30,6 @@ for (let i=0;i<words.length;i++) {
   word_map.push(mapping);
   mapping+=div;
 }
-//console.log(word_map);
 
 // add function to change word based on y coordinates
 var prev_index=0;
@@ -66,12 +65,9 @@ function updateWord (y) {
 
 // add event listener to update on scroll
 window.addEventListener("scroll", function (e) {
-  //console.log(this.scrollY);
   updateWord(this.scrollY);
 });
 
-// call updateWord one time manually to initially write the first word
-//updateWord(0);
 // initialize word element with the first word
 wordChangeElem.innerHTML = words[0];
 
