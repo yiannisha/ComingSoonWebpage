@@ -1,0 +1,186 @@
+* { 
+    margin: 0px; 
+    // border: solid 1px red; 
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    background-color: rgb(255, 255, 255);
+    font-family: 'Montserrat', sans-serif;
+}
+
+a { 
+    text-decoration: none;
+}
+header {
+padding: 20px 0;
+box-shadow: 0 4px 6px rgba(0,0,0,.2);  
+// border-bottom: 1px solid #E2E8F0;
+    .container {
+        // padding: 0 20px;
+        // max-width: 30%;
+        margin: 0 auto;
+        display: flex; 
+        align-items: center;
+        justify-content: space-between;
+        .logo-box {
+            a {
+                outline: none;
+                img {
+                    width: 50%;
+                    padding-left: 0.6em;
+                }  
+            }
+        }
+        
+    }
+    nav{
+        overflow: hidden; 
+        .nav-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            padding-right: 0.6em; 
+            float: right;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            a {
+                text-decoration: none;
+                display: block;
+                position: relative;
+                color: #555454;
+                text-transform: uppercase;
+            }
+            a:after {
+                content: "";
+                width: 0;
+                height: 1px;
+                position: absolute;
+                left: 0;
+                bottom: 22px;
+                background: #444444;
+                transition: width .3s linear;  
+            }
+
+            a:hover:after {width: 100%;} 
+
+            li {
+                padding: 0.7em;
+                height: 70px;
+                line-height: 70px;
+                display: flex;
+                align-items: center;
+                .buttons {
+                    display: flex;
+                    flex-direction: column;
+                    #but {
+                        margin: 0.1em;
+                    }
+                }
+            }
+        }
+        .hamburger {
+            display: none; 
+            .bar {
+                display: block;
+                width: 25px;
+                height: 3px;
+                margin: 5px auto;
+                -webkit-transition: all 0.3s ease-in-out;
+                transition: all 0.3s ease-in-out;
+                background-color: #0e0e0e;
+            }
+        }
+     }
+}
+.about {
+    padding: 40px;
+    .about_image {
+        position: absolute;
+        border-radius: 15px;
+    }
+    .text {
+        position: relative;
+        width: 30%;
+        height: auto;
+        top: 100px; 
+        left: 200px; 
+        background-color: #555454;
+        border-radius: 15px;
+        padding: 30px;
+    }
+    .about_image2 {
+        position: relative; 
+        left: 1000px;
+        bottom: 400px;
+    }
+}
+
+
+@media screen and (max-width: 890px) {
+    header .nav-menu {
+        position: fixed;
+        left: -125%;
+        top: 5rem;
+        flex-direction: column;
+        background-color: #fff;
+        width: 100%;
+        border-radius: 10px;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow:
+            0 10px 27px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-menu.active {
+        left: 0; 
+        display: flex;
+        align-items: center;
+        margin-top: 1em;
+        box-shadow: 0 4px 6px rgba(0,0,0,.2);
+        border-radius: 0;
+        li {
+            padding: 0px;
+            line-height: 70px;
+            height:70px;
+        }
+    }
+    header nav li:nth-child(3) {
+        align-self: flex-end;
+        margin-right: 1.1em;
+    }
+
+    header nav {
+        .hamburger { 
+            display: block; 
+            margin-right: 2em; 
+            cursor: pointer;
+        }
+
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active .bar:nth-child(1) {
+            -webkit-transform: translateY(8px) rotate(45deg);
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active .bar:nth-child(3) {
+            -webkit-transform: translateY(-8px) rotate(-45deg);
+            transform: translateY(-8px) rotate(-45deg);
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    header nav .hamburger {
+        margin-right: 4em;
+    }
+
+    .nav-menu.active {
+        margin-top: 1.3em;
+    }
+}
