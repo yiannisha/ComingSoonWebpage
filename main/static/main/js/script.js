@@ -52,11 +52,15 @@ function updateWord (y) {
 
   if(index != prev_index){
     let a = wordChangeElem;
-    a.classList.remove("visible");
-    a.classList.add("invisible");
+    a.classList.remove("visible_up");
+    a.classList.remove("visible_down");
+    if(index > prev_index) a.classList.add("invisible_up");
+    else if (index < prev_index) a.classList.add("invisible_down");
     a.onanimationend = () => {
-      a.classList.remove("invisible");
-      a.classList.add("visible");
+      a.classList.remove("invisible_up");
+      a.classList.remove("invisible_down");
+      if(index > prev_index) a.classList.add("visible_up");
+      else if (index < prev_index) a.classList.add("visible_down");
       a.innerHTML = words[index];
       prev_index = index;
     };

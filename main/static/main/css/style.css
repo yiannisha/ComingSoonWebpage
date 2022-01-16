@@ -75,17 +75,21 @@
   font-size: 100px;
 }
 
-.invisible {
-  #display: none;
-
-  animation: go_out .5s; /* pulsate 2.5s infinite alternate; */
-
+.invisible_up {
+  animation: go_out_up .5s; /* pulsate 2.5s infinite alternate; */
 }
 
-.visible {
-  animation: come_in .5s; /* pulsate 2.5s infinite alternate; */
+.invisible_down {
+  animation: go_out_down .5s; /* pulsate 2.5s infinite alternate; */
 }
 
+.visible_up {
+  animation: come_in_up .5s; /* pulsate 2.5s infinite alternate; */
+}
+
+.visible_down {
+  animation: come_in_down .5s; /* pulsate 2.5s infinite alternate; */
+}
 
 .neonText {
   color: #fff;
@@ -135,7 +139,7 @@
   }
 }
 
-@keyframes go_out {
+@keyframes go_out_up {
 
   0% {
     opacity: 1;
@@ -149,11 +153,39 @@
 
 }
 
-@keyframes come_in {
+@keyframes go_out_down {
+
+  0% {
+    opacity: 1;
+    transform:translate3d(0,0,0);
+  }
+
+  100% {
+    opacity: 0;
+    transform:translate3d(0,100px,0);
+  }
+
+}
+
+@keyframes come_in_up {
 
   0% {
     opacity: 0;
     transform:translate3d(0,100px,0);
+  }
+
+  100% {
+    opacity: 1;
+    transform:translate3d(0,0,0);
+  }
+
+}
+
+@keyframes come_in_down {
+
+  0% {
+    opacity: 0;
+    transform:translate3d(0,-100px,0);
   }
 
   100% {
