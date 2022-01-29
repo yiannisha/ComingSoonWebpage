@@ -202,3 +202,32 @@ function animate() {
       init();
       requestAnimationFrame(animate);
     });
+
+/*
+  SLIDERS
+*/
+
+// Detect when reaching the end of the welcome page
+window.addEventListener("scroll", function () {
+  let h = wordContainerElem.getBoundingClientRect();
+  let s1 = document.querySelector("#slider1")
+  if(h.height + h.y <= window.innerHeight && s1.style.display != "none") {
+    //console.log(1);
+    wordContainerElem.style.zIndex = 0;
+    slider_up_animation(s1, 2500);
+    //setTimeout(function () {wordContainerElem.style.display = "none"}, 1250);
+    setTimeout(function () {s1.style.display = "none"}, 2500);
+  }
+});
+
+function slider_up_animation (slider, duration) {
+  slider.animate (
+    [
+      { transform:"translate(0,0)" },
+      { transform:"translate(0,-300%)" }
+    ],
+    {
+      duration: duration
+    }
+  );
+}
