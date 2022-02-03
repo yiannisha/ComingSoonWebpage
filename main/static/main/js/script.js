@@ -8,38 +8,34 @@
 */
 
 // list of words
-let words = ["TEDX", "AWESOME", "VERY NICE", "LOADING..."];
+var words = ["TEDX", "AWESOME", "VERY NICE", "LOADING..."];
+var range = 1000;
 const wordChangeElem = document.querySelector("#wordChange");
-// make container div big enough for all the words
-var wordContainerElem = document.querySelector(".welcome-container");
-wordContainerElem.style.paddingBottom = (words.length * window.innerHeight).toString() + "px";
 
-// map words to y coordinates
-let welcomeContainerStyle = window.getComputedStyle(wordContainerElem);
-// calculate total height of container
-let wContainerHeight = parseInt(welcomeContainerStyle.height);
-let wContainerPaddingTop = parseInt(welcomeContainerStyle.paddingTop);
-let wContainerPaddingBottom = parseInt(welcomeContainerStyle.paddingBottom);
-var containerHeight = wContainerHeight + wContainerPaddingTop + wContainerPaddingBottom;
-
-// divide total height into (words.length) parts and assign a word to each part
+// map range to each word
 var word_map = [];
-let div = containerHeight / words.length;
-let mapping = div;
+let mapping = range;
 for (let i=0;i<words.length;i++) {
   word_map.push(mapping);
-  mapping+=div;
+  mapping+=range;
 }
 
-// add function to change word based on y coordinates
+// add event listener to update Y coordinate on wheel
+var cordY = 0;
+window.addEventListener("wheel", function (e) {
+  cordY += parseInt(e.deltaY);
+  updateWord(cordY);
+});
+
+// add function to change word based on Y coordinate
 var prev_index=0;
 function updateWord (y) {
-  // changes elem.innerHtml mapping the y coordinate to a word
+  // changes the innerText of the element mapping the Y coordinate to a word
 
   // find in what part y belongs
-  var index;
+  var index; // index of word mapped to current Y coordinate
   if(y <= word_map[0]){
-    index = 0;
+    index = 0; // return first word in list if Ycord < 0
   }
   else {
     for( let i=1;i<word_map.length;i++ ) {
@@ -50,27 +46,34 @@ function updateWord (y) {
     }
   }
 
+  // animate word transition
   if(index != prev_index){
     let a = wordChangeElem;
+
     a.classList.remove("visible_up");
     a.classList.remove("visible_down");
-    if(index > prev_index) a.classList.add("invisible_up");
-    else if (index < prev_index) a.classList.add("invisible_down");
+
+    // we want both words to move upwards when exiting/entering if the
+    // new word is the one after the old word
+    var direction = "up";
+    // we want both words to move downwards when exiting/entering if the
+    // new word is the one before the old word
+    if (index < prev_index) direction = "down";
+
+    a.classList.add(`invisible_${direction}`);
+
+    // make new word appear once old one dissapears
     a.onanimationend = () => {
       a.classList.remove("invisible_up");
       a.classList.remove("invisible_down");
-      if(index > prev_index) a.classList.add("visible_up");
-      else if (index < prev_index) a.classList.add("visible_down");
-      a.innerHTML = words[index];
+
+      a.classList.add(`visible_${direction}`);
+      // change innerText to new word
+      a.innerText = words[index];
       prev_index = index;
     };
   }
 }
-
-// add event listener to update on scroll
-window.addEventListener("scroll", function (e) {
-  updateWord(this.scrollY);
-});
 
 // initialize word element with the first word
 wordChangeElem.innerHTML = words[0];
