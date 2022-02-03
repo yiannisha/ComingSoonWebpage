@@ -8,7 +8,7 @@
 </head>
 <body>
   <!--- HEADER --->
-  <header>
+  <header style="display: none">
     <div class = "container">
       <div class = "logo-box">
         <a href = "#" aria-label="Go to homepage">
@@ -35,7 +35,7 @@
     </div>
   </header>
 
-  <section class = "about">
+  <section class = "about" style="display: none;">
     <img class = "about_image" src = "{% static 'main/img/happyface.jpg' %}" alt="Happy face">
     <div class = "text">
       <p><b>Τι είναι το Tedx?</b></p>
@@ -48,7 +48,7 @@
   </section>
 
   <!--- WELCOME PAGE --->
-  <div class="welcome-container">
+  <div class="welcome-container" id="welcomePage">
     <div class="wrapper" id="canvas-container"></div>
     <div class="neonText word-container">
       is&nbsp;&nbsp
@@ -61,7 +61,7 @@
   <div id="slider1" class="slider"></div>
 
   <!--- MAIN PAGE --->
-  <div id="main_page">SOMETHING</div>
+  <div id="mainPage">SOMETHING</div>
 
 </body>
 <script type="text/javascript" src = "{% static 'main/js/main.js' %}?{% now "U" %}"></script>

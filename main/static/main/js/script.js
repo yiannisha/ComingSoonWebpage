@@ -207,19 +207,36 @@ function animate() {
     });
 
 /*
-  SLIDERS
+  TRANSITION
 */
 
 // Detect when reaching the end of the welcome page
-window.addEventListener("scroll", function () {
-  let h = wordContainerElem.getBoundingClientRect();
-  let s1 = document.querySelector("#slider1")
-  if(h.height + h.y <= window.innerHeight && s1.style.display != "none") {
-    //console.log(1);
-    wordContainerElem.style.zIndex = 0;
-    slider_up_animation(s1, 2500);
-    //setTimeout(function () {wordContainerElem.style.display = "none"}, 1250);
-    setTimeout(function () {s1.style.display = "none"}, 2500);
+var welcomePage = document.getElementById("welcomePage"); // welcome page container
+var mainPage = document.getElementById("mainPage"); // main page container
+var mainStartY = range * words.length; // Y coordinate that transition event happens
+var mainActiveLast = false; // last active page
+window.addEventListener("wheel", function () {
+  console.log(`(${cordY}, ${mainStartY})`);
+
+  if (mainActiveLast) {
+    if (cordY < mainStartY) {
+      mainPage.style.zIndex = 0;
+      welcomePage.style.zIndex = 1;
+
+      // TODO: add page and slider animations
+
+      mainActiveLast = !mainActiveLast;
+    }
+  }
+  else {
+    if (cordY > mainStartY) {
+      mainPage.style.zIndex = 1;
+      welcomePage.style.zIndex = 0;
+
+      // TODO: add page and slider animations
+
+      mainActiveLast = !mainActiveLast;
+    }
   }
 });
 
