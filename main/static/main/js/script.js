@@ -1,11 +1,7 @@
 
-/*
-  WELCOME PAGE JAVASCRIPT
-*/
+/* --- WELCOME PAGE JAVASCRIPT --- */
 
-/*
-  WORD CHANGING COMPONENT
-*/
+/* --- WORD CHANGING COMPONENT --- */
 
 // list of words
 var words = ["TEDX", "AWESOME", "VERY NICE", "LOADING..."];
@@ -23,6 +19,7 @@ for (let i=0;i<words.length;i++) {
 // add event listener to update Y coordinate on wheel
 var cordY = 0;
 window.addEventListener("wheel", function (e) {
+  if(cordY <= 0) cordY=0;
   cordY += parseInt(e.deltaY);
   updateWord(cordY);
 });
@@ -37,6 +34,7 @@ function updateWord (y) {
   if(y <= word_map[0]){
     index = 0; // return first word in list if Ycord < 0
   }
+  if(y >= word_map[word_map.length-1]) index = word_map.length-1;
   else {
     for( let i=1;i<word_map.length;i++ ) {
       if(y <= word_map[i] && y > word_map[i-1]){
@@ -53,11 +51,9 @@ function updateWord (y) {
     a.classList.remove("visible_up");
     a.classList.remove("visible_down");
 
-    // we want both words to move upwards when exiting/entering if the
-    // new word is the one after the old word
+    // move both words upwards when exiting/entering
     var direction = "up";
-    // we want both words to move downwards when exiting/entering if the
-    // new word is the one before the old word
+    // move both words downwards when exiting/entering
     if (index < prev_index) direction = "down";
 
     a.classList.add(`invisible_${direction}`);
@@ -78,9 +74,7 @@ function updateWord (y) {
 // initialize word element with the first word
 wordChangeElem.innerHTML = words[0];
 
-/*
-  PARTICLES
-*/
+/* --- PARTICLES --- */
 
 //canvas functions
 function createCanvas(properties){
@@ -206,48 +200,102 @@ function animate() {
       requestAnimationFrame(animate);
     });
 
-/*
-  TRANSITION
-*/
+/* --- TRANSITION --- */
 
 // Detect when reaching the end of the welcome page
 var welcomePage = document.getElementById("welcomePage"); // welcome page container
 var mainPage = document.getElementById("mainPage"); // main page container
 var mainStartY = range * words.length; // Y coordinate that transition event happens
-var mainActiveLast = false; // last active page
+var mainActiveLast = false; // main page was the last active page
+
+// SLIDERS
+var slider1 = document.getElementById("slider1");
+var slider2 = document.getElementById("slider2");
+var delay = 200 // delay in ms between the two slider's animations
+
+// Main Event Listener for transitions
 window.addEventListener("wheel", function () {
   console.log(`(${cordY}, ${mainStartY})`);
 
   if (mainActiveLast) {
+    // MAIN PAGE -> WELCOME PAGE
     if (cordY < mainStartY) {
-      mainPage.style.zIndex = 0;
-      welcomePage.style.zIndex = 1;
 
-      // TODO: add page and slider animations
+      // animate slider and new page
+      pageTransition(
+        sliders = [slider1, slider2],
+        slider_animation = "slider_down",
+        delay = delay,
+        new_page = welcomePage,
+        old_page = mainPage,
+        page_animation = "page_down");
 
       mainActiveLast = !mainActiveLast;
     }
   }
   else {
-    if (cordY > mainStartY) {
-      mainPage.style.zIndex = 1;
-      welcomePage.style.zIndex = 0;
+    // WELCOME PAGE -> MAIN PAGE
+    if (cordY >= mainStartY) {
 
-      // TODO: add page and slider animations
+      // animate slider and new page
+      pageTransition(
+        sliders = [slider1, slider2],
+        slider_animation = "slider_up",
+        delay = delay,
+        new_page = mainPage,
+        old_page = welcomePage,
+        page_animation = "page_up");
 
       mainActiveLast = !mainActiveLast;
     }
   }
 });
 
-function slider_up_animation (slider, duration) {
-  slider.animate (
-    [
-      { transform:"translate(0,0)" },
-      { transform:"translate(0,-300%)" }
-    ],
-    {
-      duration: duration
+function pageTransition (sliders, slider_animation, delay, new_page, old_page, page_animation) {
+  // animate sliders and page
+
+  old_page.style.zIndex = 0;
+
+  // disable scrolling until animation finishes
+  disableScroll();
+
+  // animate slider and new page
+  sliders[0].classList.add(slider_animation);
+  let tempDelay = delay;
+  for (let i=0; i<sliders.length; i++) {
+    setTimeout(function () { sliders[i].classList.add(slider_animation); }, tempDelay);
+    tempDelay += delay;
+  }
+  new_page.classList.add(page_animation);
+
+  // make new page appear on top
+  new_page.style.zIndex = 1;
+  new_page.style.display = "block";
+
+  sliders[0].onanimationend = () => {
+    // remove animation class
+    sliders[0].classList.remove(slider_animation);
+    let tempDelay = delay;
+    for (let i=0; i<sliders.length; i++) {
+      setTimeout(function () { sliders[i].classList.remove(slider_animation); }, delay);
+      tempDelay += delay;
     }
-  );
+    new_page.classList.remove(page_animation);
+
+    enableScroll();
+
+    // make old page dissapear
+    old_page.style.display = "none";
+  };
+
+}
+
+function disableScroll() {
+  // adds class that disables scrolling to body
+  document.body.classList.add("stop-scrolling");
+}
+
+function enableScroll() {
+  // removes class that disables scrolling from body
+    document.body.classList.remove("stop-scrolling");
 }
