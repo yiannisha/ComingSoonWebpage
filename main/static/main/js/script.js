@@ -18,9 +18,10 @@ for (let i=0;i<words.length;i++) {
 
 // add event listener to update Y coordinate on wheel
 var cordY = 0;
+var transition_animation = false; // used in transitions
 window.addEventListener("wheel", function (e) {
   if(cordY <= 0) cordY=0;
-  cordY += parseInt(e.deltaY);
+  if(!transition_animation) cordY += parseInt(e.deltaY);
   updateWord(cordY);
 });
 
@@ -219,7 +220,7 @@ window.addEventListener("wheel", function () {
 
   if (mainActiveLast) {
     // MAIN PAGE -> WELCOME PAGE
-    if (cordY < mainStartY) {
+    if (cordY < mainStartY && this.scrollY == 0) {
 
       // animate slider and new page
       pageTransition(
@@ -259,10 +260,13 @@ function pageTransition (sliders, slider_animation, delay, new_page, old_page, p
   // disable scrolling until animation finishes
   disableScroll();
 
+  // disable wheel registering
+  transition_animation = true;
+
   // animate slider and new page
-  sliders[0].classList.add(slider_animation);
-  let tempDelay = delay;
+  let tempDelay = 0;
   for (let i=0; i<sliders.length; i++) {
+    sliders[i].style.zIndex = 2;
     setTimeout(function () { sliders[i].classList.add(slider_animation); }, tempDelay);
     tempDelay += delay;
   }
@@ -274,11 +278,13 @@ function pageTransition (sliders, slider_animation, delay, new_page, old_page, p
 
   sliders[0].onanimationend = () => {
     // remove animation class
-    sliders[0].classList.remove(slider_animation);
-    let tempDelay = delay;
+    let tempDelay = 0;
     for (let i=0; i<sliders.length; i++) {
+      sliders[i].style.zIndex = 0;
       setTimeout(function () { sliders[i].classList.remove(slider_animation); }, delay);
       tempDelay += delay;
+
+    transition_animation = false;
     }
     new_page.classList.remove(page_animation);
 
