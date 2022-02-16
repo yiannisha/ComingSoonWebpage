@@ -216,8 +216,7 @@ var delay = 200 // delay in ms between the two slider's animations
 
 // Main Event Listener for transitions
 window.addEventListener("wheel", function () {
-  // debug
-  // console.log(`(${cordY}, ${mainStartY})`);
+  console.log(`(${cordY}, ${mainStartY})`);
 
   if (mainActiveLast) {
     // MAIN PAGE -> WELCOME PAGE
